@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        //根据分解质因数的数学原理，我们只需找到n阶乘的10的幂次，由于2在n的阶乘的幂次中肯定多于5的，所以所求即为5的幂次！用勒让德公式求即可。
+        int ans = 0;
+        for (;;)
+        {
+            n /= 5;
+            if(n==0)break;
+            ans += n;
+        }
+        return ans;
+        
+    }
+};
