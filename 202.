@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+    //根据题目描述，寻找happy number只会有两种情况：终结于1或循环。由循环我们想到用快慢指针的方法。
+        if(n<=0)return false;
+        if(n==1)return true;
+        int fast=n,slow=n;
+        while(true){
+            fast=operate(operate(fast));
+            slow=operate(slow);
+            if(fast==1)return true;
+            if(fast==slow)return false;
+        }
+    }
+    int operate(int n){
+        int ans=0;
+        while(n>0){
+            ans+=(n%10)*(n%10);
+            n/=10;
+        }
+        return ans;
+    }
+};
