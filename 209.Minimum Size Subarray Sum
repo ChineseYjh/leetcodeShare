@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int minSubArrayLen(int s, vector<int>& nums) {
+        //暴力法：时间复杂度O（n^2）
+        //思路很简单，就是遍历最小长度，然后从头到尾地验证，唯一的技巧就是验证的时候用的和sum除了初始化其他都是是用O（1）的复杂度（去头加尾）完成的
+        int ans = 0;
+        int size = nums.size();
+        bool isFound = false;
+        for(int i=1;i<=size;i++){
+            int head=0;
+            int tail=i-1;
+            int sum=0;
+            for(int j=head;j<=tail;j++){
+                sum+=nums[j];
+            }
+            while(tail<size){
+                if(sum>=s){
+                    isFound = true;
+                    break;
+                }
+                sum -= nums[head++];
+                sum += nums[++tail];
+            }
+            if(isFound){
+                ans=i;
+                break;
+            }
+        }
+        return ans;
+    }
+};
