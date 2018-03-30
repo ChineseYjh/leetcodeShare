@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        //很简单，直接化成字符数组
+        //time complexity : O(n)
+        if(x < 0)return false;
+        if(x < 10)return true;
+        char num[15];//因为x是int型的，最大也就2^31 - 1
+        sprintf(num, "%d", x);
+        int start = 0;
+        int end = 0;
+        while(num[end]!='\0'){
+            end++;
+        }
+        end--;
+        while(start<=end){
+            if(num[start++]!=num[end--]){
+                return false;
+            }
+        }
+        return true;
+    }
+};
