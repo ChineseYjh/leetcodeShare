@@ -2,8 +2,12 @@ class Solution
 {
 public:
 	int maxSubArray(vector<int>& nums) {
+	//time complexity : O(n)
+	//思路：从头遍历一遍数组，如果都是非正的，就再遍历一次输出最大的；否则，注意到每次最大值会发生改变就是因为碰到了正数，所以，
+	//每次碰到正数分三种情况：（1）最大值是这个正数（nums[ptr]），（2）最大值还是max（前面的所求最大值），（3）最大值是连同前面所求最大值再
+	//一直加到这个正数的和（temp+nums[ptr]）。分三种情况讨论就可以解决。
 		int max = pow(-2, 31);//log for the maximal
-		int temp = 0;//everytime we meet a positive number, make it temp equivalent to maximal of max and nums[ptr] and temp+nums[ptr], and keep adding the number to temp when it's not positive
+		int temp = 0;//everytime we meet a positive number, make temp equivalent to maximal of max and nums[ptr] and temp+nums[ptr], and keep adding the number to temp when it's not positive
 		int ptr = 0;//point to the current element
 		int count = 0;//if it is 0, it means there is no positive number.
 		for (; ptr < nums.size(); ptr++) {
