@@ -1,0 +1,43 @@
+class Solution
+{
+public:
+	int maxSubArray(vector<int>& nums) {
+		int max = pow(-2, 31);//log for the maximal
+		int temp = 0;//everytime we meet a positive number, make it temp equivalent to maximal of max and nums[ptr] and temp+nums[ptr], and keep adding the number to temp when it's not positive
+		int ptr = 0;//point to the current element
+		int count = 0;//if it is 0, it means there is no positive number.
+		for (; ptr < nums.size(); ptr++) {
+			if (nums[ptr] > 0) {
+				if (count == 0) {
+					max = temp = nums[ptr];
+					count++;
+				}
+				else {
+					if (max >= temp + nums[ptr]) {
+						if (max >= nums[ptr])
+							if (nums[ptr] >= temp + nums[ptr])
+								temp = nums[ptr];
+							else
+								temp = temp + nums[ptr];
+						else
+							temp = max = nums[ptr];
+					}
+					else {
+						if (temp + nums[ptr] >= nums[ptr])
+							temp = max = temp + nums[ptr];
+						else
+							temp = max = nums[ptr];
+					}
+				}
+			}
+			else
+				temp += nums[ptr];
+		}
+		if (count == 0) {
+			for (int i = 0; i<nums.size(); i++) {
+				max = max>nums[i] ? max : nums[i];
+			}
+		}
+		return max;
+	}
+};
