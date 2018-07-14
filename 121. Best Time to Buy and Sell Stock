@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        //遍历的话O（n^2）可以解决，但是想压缩到O（n），就考虑卖的时刻。
+        if(prices.empty() || prices.size() == 1) return 0;
+        vector<int>max_sell;//在i+1处卖股票的盈利
+        int min_price = prices[0];//min(prices[0] ~ prices[i])
+        max_sell.push_back(prices[1] - min_price);
+        int ans = max_sell[0];
+        int size = prices.size();
+        for(int i = 1; i < size - 1; i++){
+            min_price = min_price <= prices[i] ? min_price : prices[i];
+            max_sell.push_back(prices[i + 1] - min_price);
+            if(ans < max_sell[i]) ans = max_sell[i];
+        }
+        return (ans > 0 ? ans : 0);
+    }
+};
