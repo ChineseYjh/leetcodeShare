@@ -1,0 +1,21 @@
+class Solution {
+/*ugly numbers can be seen as the union of the following 3 parts
+(1) 1×2, 2×2, 3×2, 4×2, 5×2, …
+(2) 1×3, 2×3, 3×3, 4×3, 5×3, …
+(3) 1×5, 2×5, 3×5, 4×5, 5×5, …
+*/
+public:
+    int nthUglyNumber(int n) {
+        int ugly[1690];
+        ugly[0] = 1;
+        int ptr2, ptr3, ptr5;
+        ptr2 = ptr3 = ptr5 = 0;
+        for(int i = 1; i < n; i++){
+            ugly[i] = min({2 * ugly[ptr2], 3 * ugly[ptr3], 5 * ugly[ptr5]});
+            if(ugly[i] == ugly[ptr2] * 2) ptr2++;
+            if(ugly[i] == ugly[ptr3] * 3) ptr3++;
+            if(ugly[i] == ugly[ptr5] * 5) ptr5++;
+        }
+        return ugly[n - 1];
+    }
+};
