@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        int min_total[1002];//跳到该处的最小花费和
+        min_total[0] = 0;
+        min_total[1] = 0;
+        int steps = cost.size();
+        for(int i = 2; i <= steps; i++){
+            min_total[i] = min(min_total[i - 1] + cost[i - 1], min_total[i - 2] + cost[i - 2]);
+        }
+        return min_total[steps];
+    }
+};
