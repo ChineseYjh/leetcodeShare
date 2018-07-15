@@ -1,0 +1,20 @@
+bool cmp(vector<int>v1, vector<int>v2) {return v1[1] < v2[1];}
+class Solution {
+public:
+    int findLongestChain(vector<vector<int>>& pairs) {
+        //greedy
+        //定义pair(first, second)，则先按second升序排序，然后逐个找出大于分别前一个pair的second的有最小的pair入链
+        int size = pairs.size();
+        if(!size) return 0;
+        sort(pairs.begin(), pairs.end(), cmp);
+        int lower = (pairs[0])[1];
+        int len = 1;
+        for(int i = 1; i < size; i++){
+            if((pairs[i])[0] > lower){
+                lower = (pairs[i])[1];
+                len++;
+            }
+        }
+        return len;
+    }
+};
