@@ -1,0 +1,25 @@
+class NumArray {
+public:
+    vector<int>sums;//sums[i] = sumRange(0, i)
+    NumArray(vector<int> nums) {
+        if(nums.empty()) return;
+        int sum = nums[0];
+        sums.push_back(sum);
+        int size = nums.size();
+        for(int i = 1; i < size; i++){
+            sums.push_back(sum += nums[i]);
+        }
+    }
+    
+    int sumRange(int i, int j) {
+        if(sums.empty()) return 0;
+        if(!i) return sums[j];
+        else return sums[j] - sums[i - 1];
+    }
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * int param_1 = obj.sumRange(i,j);
+ */
