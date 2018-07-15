@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int dp[1002][1002];//dp[i][j]是s1[:i]与s2[:j]的最长公共子序列的ASCII和，数列下标从1开始
+    int minimumDeleteSum(string s1, string s2) {
+        //最质朴的想法：
+        //第一步，删除一个串(eg.si)尽量少的字符(O(len(si^2)))
+        //第二步，拿剩下的去与串sj匹配(O(len(sj)))
+        //当sj远大于si时以上算法很棒，但是若两个都很大的话，可以用最长公共子序列问题来处理该问题: O(len(si)*len(sj))
+        int len1 = s1.length();
+        int len2 = s2.length();
+        for(int i = 0; i <= len1; i++) dp[0][i] = 0;
+        for(int i = 0; i <= len2; i++) dp[i][0] = 0;
+        for(int i = 1; i <= len1; i++){
+            for(int j = 1; j <= len2; j++){
+                if(s1[i - 1] == s2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + int(s1[i - 1]);
+                else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+        int ans = 0;
+        for(int i = 0; i < len1; i++) ans += (int)s1[i];
+        for(int i = 0; i < len2; i++) ans += (int)s2[i];//won't overflow
+        return ans - 2 * dp[len1][len2];
+    }
+};
