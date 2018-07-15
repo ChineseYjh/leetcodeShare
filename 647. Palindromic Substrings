@@ -1,4 +1,4 @@
-class Solution {//O(nlogn)(=sigma(n/i),1<=i<=n)
+class Solution {//O(n*n)
 public:
     bool is_pldrm[1001][1001];//illustrate whether the substring(s[i,j], inclusive) is palindromic
     int countSubstrings(string s) {
