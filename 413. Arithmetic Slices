@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& A) {//O(n)
+        int size = A.size();
+        if(size < 3) return 0;
+        vector<int>slice;//slice[i]记录了以A[i + 2]为尾部的arithmetic sequence的个数, i >= 0
+        if(A[2] - A[1] == A[1] - A[0]) slice.push_back(1);
+        else slice.push_back(0);
+        int ans = slice[0];
+        for(int i = 3; i < size; i++){
+            if(A[i] - A[i - 1] == A[i - 1] - A[i - 2]) slice.push_back(slice[i - 3] + 1), ans += slice[i - 2];
+            else slice.push_back(0);
+        }
+        return ans;
+    }
+};
