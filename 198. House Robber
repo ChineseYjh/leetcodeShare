@@ -1,0 +1,17 @@
+class Solution {
+public:
+    //O(n)
+    int rob(vector<int>& nums) {
+        //rob(a[i]~a[n]) = max{a[i] + rob(a[i+2]~a[n]), rob(a[i+1]~a[n])}, 0<=i<=n
+        if(nums.empty()) return 0;
+        int houses = nums.size() - 1;//== n
+        if(houses == 0) return nums[0];
+        vector<int>ans;//ans[i] = rob(a[n-i]~a[n]) -> ans[i] = max{a[n-i] + ans[i-2], ans[i-1]}
+        ans.push_back(nums[houses]);
+        ans.push_back(nums[houses - 1]>nums[houses]?nums[houses - 1]:nums[houses]);
+        for(int i = 2; i <= houses; i++){
+            ans.push_back(max(nums[houses - i] + ans[i - 2], ans[i - 1]));
+        }
+        return ans.back()>=0 ? ans.back() : 0;
+    }
+};
